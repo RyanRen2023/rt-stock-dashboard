@@ -1,0 +1,26 @@
+type Stock {
+    symbol: String!  # Stock symbol, e.g., "AAPL"
+    name: String!    # Stock name, e.g., "Apple Inc."
+    price: Float!    # Current price
+    change: Float!   # Price change amount
+    percentChange: Float!  # Price change percentage
+    volume: Int!     # Trading volume
+    currency: String!  # Currency, e.g., "USD"
+    exchange: String!  # Exchange, e.g., "NASDAQ"
+    updatedAt: String! # Last updated time
+}
+
+type Subscription {
+    # Subscribe to stock price updates
+    stockPriceUpdated(stockCode: String!): Stock!
+}
+
+type Mutation {
+    # Simulate stock price update
+    updateStockPrice(stockCode: String!, price: Float!): Stock!
+}
+
+type Query {
+    # Query current stock information
+    stock(stockCode: String!): Stock!
+}
