@@ -297,12 +297,74 @@ For our system, we use REST API for fetching stock details, GraphQL Queries for 
 | **Fewer requests** – Saves bandwidth and reduces server load. | **Scalability issues** – If lots of people subscribe to different stocks, the server has to work harder. |
 | **Better experience** – Feels smooth and real-time. | **Connection drops** – If a WebSocket disconnects, we need to reconnect it properly. |
 
-## Section 3: Technology Recommendation and Justification
-- **Recommend** which technology (or combination of technologies) you would choose for your system: REST, GraphQL, WebSockets, or a hybrid approach.
-    - Justify your recommendation based on your analysis in Sections 1 and 2.
-    - Consider factors such as data complexity, real-time requirements, scalability, and ease of use for developers.
 
-- **Explain** why this combination is best suited for your use case in terms of performance, scalability, and real-time capabilities.
+## Section 3: Technology Recommendation and Justification
+
+> **Recommend** which technology (or combination of technologies) you would choose for your system: REST, GraphQL, WebSockets, or a hybrid approach.
+> 
+>> - Justify your recommendation based on your analysis in Sections 1 and 2.
+>> - Consider factors such as data complexity, real-time requirements, scalability, and ease of use for developers
+>
+>**Explain** why this combination is best suited for your use case in terms of performance, scalability, and real-time capabilities.
+
+### **3.1 Recommended Approach**
+
+After carefully analyzing the system’s needs, we recommend a hybrid approach to build our real-time stock market monitoring application. This approach balances performance, scalability, and real-time responsiveness by leveraging the strengths of multiple technologies:
+
+- REST API for retrieving raw stock data from external sources and standardizing it.
+- GraphQL Queries for flexible client-side queries, enabling users to request only the data they need.
+- GraphQL Subscription (WebSockets)  for real-time stock price updates with low latency.
+
+### **3.2 Justification**
+| Factor | REST API | GraphQL Queries | GraphQL Subscription |
+|--------|---------|---------|-----------|
+| **API Wrapping** | Encapsulates third-party APIs <br> Standardizes data format <br> Supports caching | --- | --- |
+| **Real-time Support** | --- | ---| Best for real-time updates <br> Low-latency push via WebSockets|
+| **Ease of Use** | Simple and Widely supported | Flexible Queries | --- |
+
+### **3.3 Why This Combination Works Best**
+
+- **REST API** is a solid choice for fetching raw stock data—it’s simple, widely used, and reliable.
+
+- **GraphQL Queries** help optimize data requests by letting us pull only what we actually need, avoiding unnecessary load on the system.
+
+- **GraphQL Subscriptions (WebSockets)** allow for real-time stock price updates, so users always see the latest data instantly without constantly refreshing.
+
+### **3.4 Performance, Scalability, and Real-Time Capabilities**
+
+**Performance Optimization**
+
+- GraphQL helps reduce unnecessary data transfer, making the system more efficient.
+- WebSockets remove the need for polling, cutting down on redundant API calls and keeping the server load light.
+- REST API benefits from caching, making repeated requests faster and less demanding on resources.
+  
+**Scalability Considerations**
+
+- Managing WebSocket connections effectively:
+  
+  - Right now, each stock subscription creates a separate WebSocket connection, which isn’t ideal at scale.
+  - To fix this, we can introduce batch stock subscriptions, so multiple stocks can be handled under a single connection, reducing overhead.
+
+**Load balancing for stability**
+
+- Spread out WebSocket traffic across multiple servers to keep performance smooth.
+
+- Use Redis caching to store frequently accessed stock data, minimizing unnecessary API calls.
+
+**Real-Time Capabilities**
+
+- WebSockets push stock updates instantly, so users always have the most up-to-date information.
+
+- Auto-reconnect features ensure stability, even if the connection drops momentarily.
+
+- If WebSockets are unavailable, periodic API polling will serve as a fallback to maintain functionality.
+
+
+### **3.4 Conclusion**
+By combining **REST API, GraphQL Queries, and GraphQL Subscription**, we achieve an efficient, scalable, and real-time stock monitoring system. 
+- The **REST API** encapsulates third-party stock APIs, provides a standardized data format, and enables caching mechanisms.
+- **GraphQL Queries** provid flexible and efficient data queries.
+- **GraphQL Subscription** leverage WebSockets for real-time stock price updates.
 
 
 
