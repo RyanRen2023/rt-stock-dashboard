@@ -1,6 +1,7 @@
 # **CST 8916 Assignment 1: Designing a Real-time Stock Market Monitoring Application with REST, GraphQL, and WebSockets**
 
-## Introduction**
+## Introduction
+
 This project focuses on designing and developing a real-time stock market monitoring application that integrates REST APIs, GraphQL, and WebSockets to provide realtime stock market data. The system enables users to search for stocks and subscribe to real-time updates. The backend utilizes a RESTful API for stock data retrieval, GraphQL for filter queries, and WebSockets for live updates. The frontend is built with React and Ant Design, offering an interactive and user-friendly experience.
 
 ## Section 1: REST and GraphQL for Data Requests and Updates

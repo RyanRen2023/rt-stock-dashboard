@@ -1,0 +1,28 @@
+@startuml
+
+node "User" as User
+node "Web Browser" as Browser
+node "GraphQL Subscription Client" as GraphQLClient
+node "GraphQL Subscription Server" as GraphQLServer
+node "Subscription Manager" as SubscriptionManager
+node "Client Subscription Map" as SubscriptionMap
+node "Stock Service" as StockService
+node "Data Fetching Service" as DataFetching
+node "Database" as Database
+node "External Stock API" as ExternalAPI
+
+User -- Browser : Uses
+Browser -- GraphQLClient : Subscribes to Stocks
+GraphQLClient -- GraphQLServer : Sends Subscription Request
+GraphQLServer -- SubscriptionManager : Manages Active Subscriptions
+SubscriptionManager -- SubscriptionMap : Tracks Client-Stock Relationships
+SubscriptionManager -- StockService : Handles Subscription Requests
+StockService -- Database : Stores & Retrieves Subscriptions
+StockService -- DataFetching : Requests Stock Data Based on Active Subscriptions
+DataFetching -- ExternalAPI : Fetches Real-time Stock Data
+DataFetching -- StockService : Sends Retrieved Stock Data
+StockService -- SubscriptionManager : Pushes Stock Updates
+SubscriptionManager -- GraphQLServer : Routes Updates to Clients
+GraphQLServer -- GraphQLClient : Sends Updates to Subscribed Users
+
+@enduml

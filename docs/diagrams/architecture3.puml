@@ -1,0 +1,18 @@
+@startuml "Realtime stock Architecture"
+
+title Realtime stock Architecture
+
+node "User" as User
+node "Web Browser" as Browser
+node "GraphQL Subscription Client" as GraphQLClient
+node "GraphQL Subscription Server" as GraphQLServer
+node "Stock Service REST API" as StockService
+node "External Stock API" as ExternalAPI
+
+User --> Browser : Uses
+Browser --> GraphQLClient : Query or Subscribes requests
+GraphQLClient --> GraphQLServer : Sends Request to server
+GraphQLServer --> StockService : Calls Stock Service API
+StockService --> ExternalAPI : Calls External API
+
+@enduml

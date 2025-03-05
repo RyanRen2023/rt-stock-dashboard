@@ -1,0 +1,22 @@
+@startuml "Subscription Workflow - Real-time Stock Updates"
+title Subscription Workflow - Real-time Stock Updates
+
+participant User
+participant "Frontend (WebSocket)" as Frontend
+participant "GraphQL Server" as GraphQL
+participant StockService
+
+User -> Frontend: Subscribe to stock "AAPL"
+Frontend -> GraphQL: subscription { stockPriceUpdated(symbol: "AAPL") }
+GraphQL -> Frontend: Subscription Confirmed and build WebSocket connection
+Frontend -> User: Listening for updates...
+GraphQL -> GraphQL: create subthread monitor for AAPL
+
+loop Every 5 seconds
+    GraphQL -> StockService: Fetch AAPL stock price
+    StockService -> GraphQL: Send updated price
+    GraphQL -> Frontend: Forward update {"symbol": "AAPL", "price": 150.50}
+    Frontend -> User: Display updated stock price
+end loop
+
+@enduml
