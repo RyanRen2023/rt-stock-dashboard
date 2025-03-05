@@ -211,10 +211,91 @@ Here is the comparison of the Pros & Cons in our User Case
 
 
 ## Section 2: WebSockets for Real-time Communication
-- **Describe** how WebSockets could be used to handle real-time communication in your chosen system.
+
+>  **Describe** how WebSockets could be used to handle real-time communication in your chosen system.
+> 
+> **Discuss** how WebSockets differ from REST and GraphQL in managing real-time data flow.
+
+### **2.1 How WebSockets Work in This System**
 
 
-- **Discuss** how WebSockets differ from REST and GraphQL in managing real-time data flow.
+A WebSocket is a persistent, two-way(full-duplex) TCP connection between the server and the client. Once the connection is established, both the client and the server can communicate with each other without requiring additional requests.(frontend.turing.edu, n.d.)
+
+Taking advantage of this feature, we can build a real-time stock monitoring application to track stock prices. When detecting a stock price update, the server can immediately push the updated data to all connected clients without delay. 
+
+Here is the workflow that used in our application:
+
+![WebSockets Workflow](./diagrams/docs/diagrams/Subscription%20Workflow%20-%20Real-time%20Stock%20Updates.png)
+
+1. User clicks the subscription button. (The frontend adds the selected stock to the list of subscribed stocks.)
+2. Frontend sends a subsription request to the GraphQL Server.(This request is handled by Apollo Client, which opens a WebSocket connection to listen for price updates.)
+3. GraphQL Server confirms the subscription request and establishes a Websocket connection.(The server ensures that the client is now subscribed to receive real-time updates for the selected stock.)
+4. GraphQL Server creates a background thread to monitor stock price updates.( A Goroutine (Go background thread) is created for each subscribed stock. • The server fetches the latest stock price from an external API instead of monitoring an internal database.)
+5. The background thread monitors stock price update and sends new stock prices to the Websocket connection
+6. WebSocket connection sends the stock price update to frontend
+
+In this project, we use GraphQL Subscriptions over WebSockets to keep stock prices updated in real-time. Instead of constantly asking the server for new data (which would slow things down and put unnecessary load on the system), WebSockets allow the server to push updates automatically whenever stock prices change. This makes everything feel instant and responsive.
+
+
+
+
+### **2.2 The comparison of managing real-time data flow**(Das, 2024)
+
+
+<table>
+  <tr>
+    <th>WebSocket</th>
+    <th>REST</th>
+    <th>GraphQL</th>
+  </tr>
+  <tr>
+    <td> 
+      <ul>
+        <li>Over TCP</li>
+        <li>Persistent connection</li>
+        <li>Full-duplex (bi-directional)</li>
+        <li>Event-driven</li>
+        <li>Low latency</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Over HTTP</li>
+        <li>Stateless</li>
+        <li>Polling, long polling, or server-sent events (SSE)(Martin, 2024)</li>
+        <li>One-way connection</li>
+        <li>High overhead</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><strong>Implemented over WebSockets</strong></li>
+        <li>subscriptions maintain an active connection</li>
+        <li>Flexible Queries</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+### **2.3 Why Use WebSockets Instead of REST or GraphQL Queries？**
+
+| Feature               | REST API | GraphQL Query | WebSockets (GraphQL Subscriptions) |
+|-----------------------|---------|--------------|----------------------------------|
+| **Mechanism**        | Sends a new request each time data is needed | Allows the client to request only the needed data | Keeps a persistent connection open and pushes updates automatically |
+| **Speed**            | Slower – requires multiple requests for updates | Medium – avoids over-fetching but still needs polling for updates | Fastest – updates sent instantly without repeated requests |
+| **Server Load**      | High – every request initiates a new connection | Low – reduces redundant data transfer | Low – reduces frequent API calls |
+| **Best For**        | Static data requests where real-time updates are not required | Flexible data fetching when updates aren’t needed in real-time | Real-time updates where instant data changes matter (e.g., stock price tracking) |
+
+
+For our system, we use REST API for fetching stock details, GraphQL Queries for flexible filtering, and WebSockets for live updates. This combination ensures the best mix of efficiency, scalability, and real-time performance.
+
+### **2.4 The Good and the Bad of WebSockets**
+
+| **Pros of WebSockets** | **Cons of WebSockets** |
+|------------------------|------------------------|
+| **Instant updates** – No waiting around for new stock prices. | **Too many connections** – Each subscribed stock creates a WebSocket connection, which could be a problem if there are too many. |
+| **Fewer requests** – Saves bandwidth and reduces server load. | **Scalability issues** – If lots of people subscribe to different stocks, the server has to work harder. |
+| **Better experience** – Feels smooth and real-time. | **Connection drops** – If a WebSocket disconnects, we need to reconnect it properly. |
 
 ## Section 3: Technology Recommendation and Justification
 - **Recommend** which technology (or combination of technologies) you would choose for your system: REST, GraphQL, WebSockets, or a hybrid approach.
