@@ -31,6 +31,7 @@
 
 ## Submistion 
 
-1. [Report](docs/Report.md)
+1. [CST8916 Assignment Report](docs/Report.md)
 2. ![Video Presentation]()
+3. [Persentation doc](docs/Presentation.pdf)
 
