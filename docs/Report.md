@@ -368,7 +368,16 @@ By combining **REST API, GraphQL Queries, and GraphQL Subscription**, we achieve
 
 
 
-## References**
-- Official documentation for REST, GraphQL, and WebSockets
-- Stock market APIs and data sources
-- Other relevant sources
+## References
+- **Documentation for REST, GraphQL, and WebSockets**
+  - Das, A. (2024, August 17). _How to Use GraphQL Subscriptions for Real-Time Data_. PixelFreeStudio Blog -. https://blog.pixelfreestudio.com/how-to-use-graphql-subscriptions-for-real-time-data/
+  - frontend.turing.edu. (n.d.). _Building Real-Time Applications with WebSockets_. frontend.turing.edu. https://frontend.turing.edu/lessons/module-4/websockets.html?ads_cmpid=6451354298&ads_adid=76255849919&ads_matchtype=&ads_network=g&ads_creative=582477081488&utm_term=&ads_targetid=dsa-19959388920&utm_campaign=&utm_source=adwords&utm_medium=ppc&ttv=2&gad_source=1&gclid=CjwKCAiAw5W-BhAhEiwApv4goN3PggXW-GUOlm5BggyMUD_eRxRxjKTKrSjkcWqgV-myPKB7FY3iVxoCxMMQAvD_BwE
+  - IBM. “REST APIs.” _Ibm.com_, 19 Oct. 2021, www.ibm.com/think/topics/rest-apis. Accessed 5 Mar. 2025.
+  - Martin, E. (2024, September 26). _WebSockets vs Server-Sent Events: Key differences and which to use in 2024_. Ably Realtime. https://ably.com/blog/websockets-vs-sse
+  - McKenzie, C. (2023, August 21). _HTTP request methods explained_. Www.theserverside.com. https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/HTTP-methods
+  - Nefe Emadamerho-Atori. (2024, September 20). _GraphQL vs. REST: API Guide - Benefits, Pros & Cons, & More_. Prismic. https://prismic.io/blog/graphql-vs-rest-api?account_id=4897815674&campaign_id=22180677541&group_id=&ad_id=&placement=&keyword_id=&network=x&matchtype=&utm_device=c&utm_term=&utm_campaign=RoW_en_PMax_BOFU&utm_source=adwords&utm_medium=ppc&utm_content=&hsa_acc=4897815674&hsa_cam=22180677541&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAiAw5W-BhAhEiwApv4goP9RtZdk_zqwMSUJDVRunlptTgM6WOFCRy7MeeGA3m7dumGku5mqtxoCCO4QAvD_BwE
+  - The GraphQL Foundation. (n.d.). _Queries and Mutations_ | GraphQL. Graphql.org. https://graphql.org/learn/queries/
+  - The GraphQL Foundation. (2012). _GraphQL: A query language for APIs_. Graphql.org. https://graphql.org/
+
+- **Stock market APIs and data sources**
+  - https://query1.finance.yahoo.com/v8/finance/chart/%s (%s stock code) 
