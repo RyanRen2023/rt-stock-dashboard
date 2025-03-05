@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  stock-api:
+    image: stock-restapi-server
+    container_name: stock-api
+    build:
+      context: ./stocks-server
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - STOCK_API_ENV=production
+    restart: always
+
+  stock-graphql:
+    image: stock-graphql-server
+    container_name: stock-graphql
+    build:
+      context: ./graphql-server
+      dockerfile: Dockerfile 
+    depends_on:
+      - stock-api
+    environment:
+      - SCRAPER_ENV=production
+      - API_URL=http://stock-api:8081
+    ports:
+      - "8080:8080"
+    restart: always
+
+  stock-dashboard:
+    image: realtime-stock-dashboard
+    container_name: realtime-stock-dashboard
+    build:
+      context: ./stock-dashboard
+      dockerfile: Dockerfile
+    depends_on:
+      - stock-graphql
+    environment:
+      - REACT_APP_GRAPHQL_URL=http://stock-graphql:8080/query
+      - REACT_APP_GRAPHQL_WS_URL=ws://stock-graphql:8080/query
+    ports:
+      - "3000:80"
+    restart: always
