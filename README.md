@@ -32,6 +32,6 @@
 ## Submistion 
 
 1. [CST8916 Assignment Report](docs/Report.md)
-2. ![Video Presentation](https://youtu.be/hFhvJR-Rhf4)
+2. [Video Presentation](https://youtu.be/hFhvJR-Rhf4)
 3. [Persentation doc](docs/Presentation.pdf)
 
